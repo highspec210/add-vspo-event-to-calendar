@@ -43,4 +43,8 @@ class CalendarManager:
         )
         body = calendarModel.getBody()
 
-        return service.events().insert(calendarId=self.calendar_id, body=body).execute()
+        return (
+            service.events()
+            .insert(calendarId=self.calendar_id, body=body)
+            .execute()
+        )
