@@ -3,6 +3,7 @@ import googleapiclient.discovery
 import google.auth
 import os
 from dotenv import load_dotenv
+from CalendarModel import CalendarModel
 
 
 class CalendarManager:
@@ -19,17 +20,16 @@ class CalendarManager:
             "calendar", "v3", credentials=self.gapi_creds
         )
         now = datetime.now()
-        body = {
-            "summary": "今から1時間後に1時間のテスト予定",
-            "description": "今は" + now.strftime("%Y/%m/%d %H:%M:%S"),
-            "start": {
-                "dateTime": (now + timedelta(hours=1)).isoformat(),
-                "timeZone": "Japan",
-            },
-            "end": {
-                "dateTime": (now + timedelta(hours=2)).isoformat(),
-                "timeZone": "Japan",
-            },
-        }
+        calendarModel = CalendarModel()
+        calendarModel.summary = "今から1時間後に1時間のテスト予定"
+        calendarModel.description = "今は" + now.strftime("%Y/%m/%d %H:%M:%S")
+        calendarModel.start = dict(
+            dateTime=(now + timedelta(hours=1)).isoformat(), timeZone="Japan"
+        )
+        calendarModel.end = dict(
+            dateTime=(now + timedelta(hours=2)).isoformat(),
+            timeZone="Japan",
+        )
+        body = calendarModel.getBody()
 
         print(service.events().insert(calendarId=self.calendar_id, body=body).execute())
