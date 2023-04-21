@@ -15,14 +15,14 @@ class CalendarManager:
             "make-calendar-event-647801856e3c.json", SCOPES
         )[0]
 
-    def add_event(self, bodyModel: CalendarModel):
+    def add_event(self, body_model: CalendarModel):
         service = googleapiclient.discovery.build(
             "calendar", "v3", credentials=self.gapi_creds
         )
 
         return (
             service.events()
-            .insert(calendarId=self.calendar_id, body=bodyModel.getBody())
+            .insert(calendarId=self.calendar_id, body=body_model.get_body())
             .execute()
         )
 
@@ -31,20 +31,19 @@ class CalendarManager:
             "calendar", "v3", credentials=self.gapi_creds
         )
         now = datetime.now()
-        calendarModel = CalendarModel()
-        calendarModel.summary = "今から1時間後に1時間のテスト予定"
-        calendarModel.description = "今は" + now.strftime("%Y/%m/%d %H:%M:%S")
-        calendarModel.start = dict(
+        calendar_model = CalendarModel()
+        calendar_model.summary = "今から1時間後に1時間のテスト予定"
+        calendar_model.description = "今は" + now.strftime("%Y/%m/%d %H:%M:%S")
+        calendar_model.start = dict(
             dateTime=(now + timedelta(hours=1)).isoformat(), timeZone="Japan"
         )
-        calendarModel.end = dict(
+        calendar_model.end = dict(
             dateTime=(now + timedelta(hours=2)).isoformat(),
             timeZone="Japan",
         )
-        body = calendarModel.getBody()
 
         return (
             service.events()
-            .insert(calendarId=self.calendar_id, body=body)
+            .insert(calendarId=self.calendar_id, body=calendar_model.get_body())
             .execute()
         )

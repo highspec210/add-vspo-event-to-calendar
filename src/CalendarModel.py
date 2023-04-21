@@ -1,3 +1,3 @@
 class CalendarModel:
-    def getBody(self):
+    def get_body(self):
         return vars(self)
