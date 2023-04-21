@@ -15,6 +15,17 @@ class CalendarManager:
             "make-calendar-event-647801856e3c.json", SCOPES
         )[0]
 
+    def add_event(self, bodyModel: CalendarModel):
+        service = googleapiclient.discovery.build(
+            "calendar", "v3", credentials=self.gapi_creds
+        )
+
+        return (
+            service.events()
+            .insert(calendarId=self.calendar_id, body=bodyModel.getBody())
+            .execute()
+        )
+
     def add_test_event(self):
         service = googleapiclient.discovery.build(
             "calendar", "v3", credentials=self.gapi_creds
@@ -32,4 +43,4 @@ class CalendarManager:
         )
         body = calendarModel.getBody()
 
-        print(service.events().insert(calendarId=self.calendar_id, body=body).execute())
+        return service.events().insert(calendarId=self.calendar_id, body=body).execute()
