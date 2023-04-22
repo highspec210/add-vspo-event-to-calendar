@@ -20,7 +20,7 @@ class ItemScrapingManager:
         for element in driver.find_elements(By.CLASS_NAME, date_class_name):
             for element_p in element.find_elements(By.CSS_SELECTOR, "p"):
                 date_time_list = re.findall(
-                    "([0-9]{4})年(\d{1,2})月(\d{1,2})日 (\d{1,2})時(\d{1,2})分",
+                    "(\d{1,4})年(\d{1,2})月(\d{1,2})日 (\d{1,2})時(\d{1,2})分",
                     element_p.text,
                 )
                 datetime_start = ItemScrapingManager.get_datetime(
