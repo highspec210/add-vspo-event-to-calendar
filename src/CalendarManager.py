@@ -1,9 +1,9 @@
-from datetime import datetime, timedelta
-import googleapiclient.discovery
-import google.auth
-import os
-from dotenv import load_dotenv
 from CalendarModel import CalendarModel
+from datetime import datetime, timedelta
+from dotenv import load_dotenv
+import google.auth
+import googleapiclient.discovery
+import os
 
 
 class CalendarManager:
@@ -23,27 +23,5 @@ class CalendarManager:
         return (
             service.events()
             .insert(calendarId=self.calendar_id, body=body_model.get_body())
-            .execute()
-        )
-
-    def add_test_event(self):
-        service = googleapiclient.discovery.build(
-            "calendar", "v3", credentials=self.gapi_creds
-        )
-        now = datetime.now()
-        calendar_model = CalendarModel()
-        calendar_model.summary = "今から1時間後に1時間のテスト予定"
-        calendar_model.description = "今は" + now.strftime("%Y/%m/%d %H:%M:%S")
-        calendar_model.start = dict(
-            dateTime=(now + timedelta(hours=1)).isoformat(), timeZone="Japan"
-        )
-        calendar_model.end = dict(
-            dateTime=(now + timedelta(hours=2)).isoformat(),
-            timeZone="Japan",
-        )
-
-        return (
-            service.events()
-            .insert(calendarId=self.calendar_id, body=calendar_model.get_body())
             .execute()
         )
