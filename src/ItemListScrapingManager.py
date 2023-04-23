@@ -7,17 +7,18 @@ from time import sleep
 
 class ItemListScrapingManager:
     @staticmethod
-    def get_item_list() -> ItemListModel:
+    def get_item_list(
+        url: str = "https://store.vspo.jp/collections/all",
+    ) -> ItemListModel:
         item_list = ItemListModel()
-        url = "https://store.vspo.jp/collections/all"
         item_class_name = "product-item-meta__title"
         pagination_class_name = "pagination_arrow-item"
 
         options = Options()
         options.add_argument("--headless")
-        driver = webdriver.Chrome("chromedriver", chrome_options=options)
+        driver = webdriver.Chrome("chromedriver")
         driver.get(url)
-        sleep(3)
+        sleep(20)
         for element in driver.find_elements(By.CLASS_NAME, item_class_name):
             item_list.add_item(
                 element.text.replace("\u3000", " "),

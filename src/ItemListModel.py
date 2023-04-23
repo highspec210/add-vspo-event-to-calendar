@@ -1,8 +1,8 @@
 class ItemListModel:
     def __init__(self):
         self.items = []
-        self.next = ""
-        self.prev = ""
+        self.next = None
+        self.prev = None
 
     def get_items(self):
         return self.items
@@ -12,6 +12,12 @@ class ItemListModel:
 
     def set_next_page(self, page_url: str):
         self.next = page_url
+
+    def has_next_page(self):
+        return bool(self.next)
+
+    def get_next_page(self):
+        return self.next
 
     def set_prev_page(self, page_url: str):
         self.prev = page_url
