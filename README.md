@@ -1,3 +1,15 @@
+# Overview
+ぶいすぽっ！公式サイトの期間限定受注生産商品の期間をGoogleカレンダーに追加するやつ
+
+# How to use
+- ```python src/AllEvents.py```
+
+  歴代すべての商品を追加する
+
+- ```python src/NewEvents.py```
+
+  実行時点でまだ期間が開始していない商品を追加する
+
 # Installation
 ``` install.sh
 pip install -r requirements.txt
