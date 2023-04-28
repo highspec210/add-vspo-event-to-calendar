@@ -14,7 +14,7 @@ class ItemScrapingManager:
 
         options = Options()
         options.add_argument("--headless")
-        driver = webdriver.Chrome("chromedriver")
+        driver = webdriver.Chrome("chromedriver", chrome_options=options)
         driver.get(url)
         sleep(10)
         for element in driver.find_elements(By.CLASS_NAME, date_class_name):

@@ -24,3 +24,7 @@ class ItemModel:
         )
 
         return calendar_model
+
+    def is_started(self):
+        now: datetime = datetime.now()
+        return self.start <= now
